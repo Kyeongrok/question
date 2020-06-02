@@ -8,24 +8,24 @@ def getProductInfo(li):
     name = li.find("div", {"class":"name"})
     regularPrice = ""
     try:
-        li.find("del", {"class":"base-price"})
+        li.find("del", {"class":"base-price"}).text.replace(",", "")
     except:
         print("regulatPrice 없음")
     salePrice = ""
     try:
-        li.find("em").find("strong", {"class":"price-value"})
+        li.find("em").find("strong", {"class":"price-value"}).text.replace(",", "")
     except:
         print("salePrice 없음")
     discount = ""
     try:
-        li.find("span", {"class":"discount-percentage"})
+        li.find("span", {"class":"discount-percentage"}).text
     except:
         print("discount 없음")
     link = li.find("a", {"class":"baby-product-link"})
     img = li.find("img")
     src = img['src']
 
-    return {"name":name.text, "regularPrice":regularPrice.find().text.replace(",", ""), "salePrice":salePrice.find().text.replace(",", ""), "discount":discount.find().text, "img":src, "link":link['href']}
+    return {"name":name.text, "regularPrice":regularPrice, "salePrice":salePrice, "discount":discount, "img":src, "link":link['href']}
 
 #2
 def parse(pageString):
